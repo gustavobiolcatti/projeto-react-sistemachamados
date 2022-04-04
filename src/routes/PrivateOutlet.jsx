@@ -3,7 +3,7 @@ import { Navigate, Outlet } from "react-router-dom";
 
 export default function PrivateOutlet() {
     
-    const signed = true
+    const signed = false
     
     return signed ? <Outlet /> : <Navigate to="/" />
   }
