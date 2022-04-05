@@ -1,7 +1,9 @@
 import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/auth";
+
 import logo from "../../assets/img/logo.png"
+import loading from "../../assets/img/loading.gif"
 
 import "./style.css"
 
@@ -10,7 +12,7 @@ export default function SignUp() {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const {signUp} = useContext(AuthContext)
+  const { signUp, loadingAuth } = useContext(AuthContext)
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -32,7 +34,9 @@ export default function SignUp() {
           <input type="email" placeholder="email@dominio.com.br" value={email} onChange={(e) => setEmail(e.target.value)} className="register__input"/>
           <input type="password" placeholder="********" value={password} onChange={(e) => setPassword(e.target.value)} className="register__input" />
           
-          <button className="register__botao" onClick={(e) => {handleSubmit(e)}}>Cadastrar</button>
+          <button className="register__botao" onClick={(e) => {handleSubmit(e)}}>
+          {loadingAuth ? <img src={loading} alt="Logo" className="register__loading" /> : "Cadastrar"}
+          </button>
 
           <Link to="/">Já possui uma conta?</Link>
         </form>

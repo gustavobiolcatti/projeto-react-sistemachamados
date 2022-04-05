@@ -1,30 +1,24 @@
-import { useState } from "react";
-import { auth } from "../../services/firebaseConnection";
-import { signInWithEmailAndPassword } from "firebase/auth"
+import { useState, useContext } from "react";
+import { AuthContext } from "../../contexts/auth";
+import { Link } from "react-router-dom";
 
 import logo from "../../assets/img/logo.png"
+import loading from "../../assets/img/loading.gif"
 
 import "./style.css"
-import { Link } from "react-router-dom";
 
 export default function SignIn() {
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const { signIn, loadingAuth } = useContext(AuthContext)
 
-  function logar(e) {
+  function handleSignIn(e) {
     e.preventDefault()
 
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredencial) => {
-        alert("Login realizado", userCredencial.user.email)
-
-        setEmail("")
-        setPassword("")
-      })
-      .catch((error) => {
-        console.log("Erro no login", error.code)
-      })
+    if (email !== "" && password !== "" ) {
+      signIn(email, password)
+    }
   }
 
   return (
@@ -38,7 +32,9 @@ export default function SignIn() {
           <input type="email" placeholder="email@dominio.com.br" value={email} onChange={(e) => setEmail(e.target.value)} className="login__input"/>
           <input type="password" placeholder="********" value={password} onChange={(e) => setPassword(e.target.value)} className="login__input" />
           
-          <button className="login__botao" onClick={logar}>Acessar</button>
+          <button className="login__botao" onClick={(e) => {handleSignIn(e)}}>
+            {loadingAuth ? <img src={loading} alt="Logo" className="login__loading" /> : "Acessar"}
+          </button>
 
           <Link to="/register">Cadastre-se</Link>
         </form>

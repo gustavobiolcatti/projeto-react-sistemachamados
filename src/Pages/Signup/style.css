@@ -67,6 +67,12 @@ body {
     font-weight: 700;
 }
 
+.register__loading {
+    display: block;
+    width: 25px;
+    margin: auto;
+}
+
 a {
     color: aliceblue;
     text-align: center;

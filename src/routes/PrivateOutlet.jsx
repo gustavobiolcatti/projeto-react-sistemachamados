@@ -4,7 +4,9 @@ import { AuthContext } from "../contexts/auth";
 
 export default function PrivateOutlet() {
 
-  const { signed } = useContext(AuthContext)
+  const { signed, user } = useContext(AuthContext)
+
+  console.log(user)
 
   return signed ? <Outlet /> : <Navigate to="/" />
 } 
