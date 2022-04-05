@@ -7,11 +7,11 @@ import Rotas from "./routes"
 
 export default function App() {
   return (
+    <BrowserRouter>
       <AuthProvider>
-        <BrowserRouter>
           <ToastContainer autoClose={5000} />
             <Rotas />
-        </BrowserRouter>
       </AuthProvider>
+    </BrowserRouter>
   );
 }

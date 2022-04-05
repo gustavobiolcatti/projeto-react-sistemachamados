@@ -3,14 +3,14 @@ import { auth, db } from "../services/firebaseConnection";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth"
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { toast } from "react-toastify"
-//import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 
 export const AuthContext = createContext({})
 
 export default function AuthProvider({children}) {
 
-    //const navigate = useNavigate()
+    const navigate = useNavigate()
     const [user, setUser] = useState(null)
     const [loadingAuth, setLoadingAuth] = useState(false)
     const [loading, setLoading] = useState(true)
@@ -21,9 +21,10 @@ export default function AuthProvider({children}) {
         if (userStorage) {
             setUser(JSON.parse(userStorage))
             console.log("Dados restaurados")
+            navigate("/dashboard")
         }
         setLoading(false)
-    }, [])
+    }, [navigate])
 
     async function signUp(name, email, password) {
         setLoadingAuth(true)
@@ -118,6 +119,12 @@ export default function AuthProvider({children}) {
     }
 
     useEffect(() => {loadStorage()}, [loadStorage])
+
+    useEffect(() => {
+        if (user) {
+            navigate("/dashboard")
+        }
+    }, [navigate, user])
 
     return (
         <AuthContext.Provider value={{signed: !!user, user, loading, loadingAuth, signUp, signIn, logout}}>
