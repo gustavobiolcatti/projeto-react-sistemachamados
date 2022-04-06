@@ -6,8 +6,6 @@ export default function PrivateOutlet() {
 
   const { signed, user } = useContext(AuthContext)
 
-  console.log(user)
-
   return signed ? <Outlet /> : <Navigate to="/" />
 } 
   

@@ -1,30 +1,31 @@
-import { useState, useEffect, createContext, useCallback } from "react";
+import { useState, createContext, useMemo } from "react";
 import { auth, db } from "../services/firebaseConnection";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth"
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { toast } from "react-toastify"
-import { useNavigate } from "react-router-dom"
-
 
 export const AuthContext = createContext({})
 
 export default function AuthProvider({children}) {
 
-    const navigate = useNavigate()
     const [user, setUser] = useState(null)
     const [loadingAuth, setLoadingAuth] = useState(false)
     const [loading, setLoading] = useState(true)
 
-    const loadStorage = useCallback(()=> {
-        const userStorage = localStorage.getItem("sistema")
+    const memorizedUser = useMemo(() => {
+        if (!user) {
+            const userStorage = localStorage.getItem("sistema")
+            const userParsed = JSON.parse(userStorage)
 
-        if (userStorage) {
-            setUser(JSON.parse(userStorage))
-            console.log("Dados restaurados")
-            navigate("/dashboard")
+            setUser(userParsed)
+            setLoading(false)
+
+            return userParsed
         }
+
         setLoading(false)
-    }, [navigate])
+        return user
+    }, [user])
 
     async function signUp(name, email, password) {
         setLoadingAuth(true)
@@ -115,19 +116,10 @@ export default function AuthProvider({children}) {
     function storageUser(data) {
         const userStringfy = JSON.stringify(data)
         localStorage.setItem("sistema", userStringfy)
-        console.log("Dados salvos")
     }
 
-    useEffect(() => {loadStorage()}, [loadStorage])
-
-    useEffect(() => {
-        if (user) {
-            navigate("/dashboard")
-        }
-    }, [navigate, user])
-
     return (
-        <AuthContext.Provider value={{signed: !!user, user, loading, loadingAuth, signUp, signIn, logout}}>
+        <AuthContext.Provider value={{signed: !!memorizedUser, user, loading, loadingAuth, signUp, signIn, logout}}>
             {children}
         </AuthContext.Provider>
     )

@@ -1,0 +1,40 @@
+.sidebar {
+    position: fixed;
+    width: 200px;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: #181c2e;
+    overflow: auto;
+}
+
+.sidebar__avatar {
+    width: 100px;
+    padding: 2.5px;
+    margin: 40px auto;
+    background-color: aliceblue;
+    border-radius: 50%;
+}
+
+.sidebar__avatar img {
+    display: block;
+    width: 100%;
+    margin: auto;
+    border-radius: 50%;
+}
+
+.sidebar__link {
+    display: flex;
+    padding: 1.3em;
+    align-items: center;
+    text-decoration: none;
+    transition: .35s;
+}
+
+.sidebar__link:hover {
+    background-color: #0d101e;
+}
+
+.sidebar__link-texto {
+    margin-left: 1em;
+}

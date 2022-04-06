@@ -1,0 +1,10 @@
+.title {
+    display: flex;
+    padding: 1em;
+    align-items: center;
+    background-color: #ffffff;
+}
+
+span {
+    margin-left: 1em;
+}
