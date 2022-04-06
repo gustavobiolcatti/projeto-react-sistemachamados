@@ -38,3 +38,20 @@
 .sidebar__link-texto {
     margin-left: 1em;
 }
+
+.sidebar__sair {
+    display: flex;
+    width: 100%;
+    padding: 1.3em;
+    color: aliceblue;
+    background-color: transparent;
+    border: none;
+    align-items: center;
+    text-align: left;
+    font-size: 16px;
+    transition: .35s;
+}
+
+.sidebar__sair:hover {
+    background-color: #0d101e;
+}

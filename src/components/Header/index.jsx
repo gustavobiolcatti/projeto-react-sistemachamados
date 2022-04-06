@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { AuthContext } from "../../contexts/auth"
 import { Link } from "react-router-dom"
-import { FiHome, FiUser, FiSettings } from "react-icons/fi";
+import { FiHome, FiUser, FiSettings, FiLogOut } from "react-icons/fi";
 
 import avatar from "../../assets/img/avatar.png"
 
@@ -9,7 +9,11 @@ import "./style.css"
 
 export default function Header() {
 
-    const { user } = useContext(AuthContext)
+    const { user, logout } = useContext(AuthContext)
+
+    function handleLogout() {
+        logout()
+    }
 
     return (
         <div className="sidebar">
@@ -31,6 +35,11 @@ export default function Header() {
                 <FiSettings color="aliceblue" size={24}/> 
                 <span className="sidebar__link-texto">Configurações</span>   
             </Link>
+
+            <button onClick={() => {handleLogout()}} className="sidebar__sair" >
+                <FiLogOut color="aliceblue" size={24} />
+                <span>Sair</span>
+            </button>
         </div>
     )
 }

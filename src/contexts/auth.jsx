@@ -119,7 +119,7 @@ export default function AuthProvider({children}) {
     }
 
     return (
-        <AuthContext.Provider value={{signed: !!memorizedUser, user, loading, loadingAuth, signUp, signIn, logout}}>
+        <AuthContext.Provider value={{signed: !!memorizedUser, user, loading, loadingAuth, setLoading, signUp, signIn, logout, setUser, storageUser}}>
             {children}
         </AuthContext.Provider>
     )
