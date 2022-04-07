@@ -1,0 +1,88 @@
+.content {
+    width: calc(100vw - 200px);
+    height: 100vh;
+    margin-left: 200px;
+    padding: 1em;
+    background-color: aliceblue;
+    box-sizing: border-box;
+}
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 5em .8em;
+    margin-top: 1em;
+    background-color: #FFF;
+    border-radius: 5px;
+    align-items: center;
+    box-shadow: 0 0 25px -15px #000;
+}
+
+.dashboard span {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.novo {
+    display: flex;
+    align-items: center;
+    padding: .75em;
+    margin-top: 2em;
+    border-radius: 10px;
+    background-color: #13df54;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 0 25px -10px #000;
+}
+
+.badge {
+    background-color: #5cb85c;
+}
+
+.action {
+    background-color: #3583f6;
+}
+
+.chamados {
+    width: 100%;
+    margin-top: 1em;
+    border: none;
+    border-collapse: unset;
+	border-radius: 15px;
+	border-spacing: 0 0.5rem;
+    font-size: 0.8em;
+}
+
+thead {
+    box-shadow: 0 0 25px -15px #000;
+}
+
+.chamados__linha {
+	background-color: #fff;
+    box-shadow: 0 0 25px -15px #000;
+}
+
+.chamados__linha td:first-child, .chamados__linha th:first-child {
+	border-radius: 5px 0 0 5px;
+}
+
+.chamados__linha td:last-child, .chamados__linha th:last-child {
+	border-radius: 0 5px 5px 0;
+}
+
+.chamados__linha--cabecalho {
+	text-transform: uppercase;
+    box-shadow: 0 0 25px -10px #000;
+}
+
+th {
+	width: 150px;
+	padding: .5em;
+    font-weight: bold;
+}
+
+td {
+	padding: 1em;
+    text-align: center;
+}
