@@ -64,7 +64,7 @@
     background-color: orange;
 }
 
-.chamados {
+.tabela-chamados {
     width: 100%;
     margin-top: 1em;
     border: none;
@@ -78,20 +78,20 @@ thead {
     box-shadow: 0 0 25px -15px #000;
 }
 
-.chamados__linha {
+.tabela-chamados__linha {
 	background-color: #fff;
     box-shadow: 0 0 25px -15px #000;
 }
 
-.chamados__linha td:first-child, .chamados__linha th:first-child {
+.tabela-chamados__linha td:first-child, .tabela-chamados__linha th:first-child {
 	border-radius: 5px 0 0 5px;
 }
 
-.chamados__linha td:last-child, .chamados__linha th:last-child {
+.tabela-chamados__linha td:last-child, .tabela-chamados__linha th:last-child {
 	border-radius: 0 5px 5px 0;
 }
 
-.chamados__linha--cabecalho {
+.tabela-chamados__linha--cabecalho {
 	text-transform: uppercase;
     box-shadow: 0 0 25px -10px #000;
 }

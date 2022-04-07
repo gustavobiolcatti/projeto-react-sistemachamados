@@ -1,15 +1,16 @@
 import { useState, useEffect, useContext } from "react"
 import { AuthContext } from "../../contexts/auth"
-import { collection, getDocs } from "firebase/firestore"
+import { collection, getDocs, addDoc } from "firebase/firestore"
 import { db } from "../../services/firebaseConnection"
+import { toast } from "react-toastify"
+
+import { FiPlusCircle } from "react-icons/fi"
+import loading from "../../assets/img/loading.gif"
 
 import Header from "../../components/Header"
 import Title from "../../components/Title"
 
-import { FiPlusCircle } from "react-icons/fi"
-
 import "./style.css"
-import { toast } from "react-toastify"
 
 export default function New() {
 
@@ -20,13 +21,33 @@ export default function New() {
 
     const [customers, setCustomers] = useState([])
     const [loadCustomers, setLoadCustomers] = useState(true)
+    const [loadInsertChamados, setLoadInsertChamados] = useState(false)
     
-    const { user } = useContext(AuthContext)
+    const { user: { uid } } = useContext(AuthContext)
 
     async function handleRegister(e) {
-        return (
-            e.preventDefault()
-        )
+        e.preventDefault()
+        setLoadInsertChamados(true)
+
+        addDoc(collection(db, "chamados"), {
+            created: new Date(),
+            cliente: customers[customerSelected].nomeFantasia,
+            clienteId: customers[customerSelected].id,
+            assunto,
+            status,
+            complemento,
+            userUid: uid
+        })
+        .then(() => {
+            toast.success("Chamado registrado!")
+        })
+        .catch((error) => {
+            toast.error("Erro ao registrar chamado")
+            console.log(error)
+        })
+        .finally(() => {
+            setLoadInsertChamados(false)
+        })
     }
 
     function handleChangeSelect(e) {
@@ -88,7 +109,7 @@ export default function New() {
 
             <div className="chamados">
                 <form className="chamados__form" onSubmit={handleRegister}>
-                    <label>Cliente - {customerSelected}</label>
+                    <label>Cliente</label>
 
                     {loadCustomers ?
                         <input type="text" disabled={true} value="Carregando clientes..." />
@@ -99,10 +120,9 @@ export default function New() {
                             })}
                         </select>
                     }
-                    
 
                     <label>Assunto</label>
-                    <select value={assunto} onChange={handleChangeSelect} >
+                    <select value={assunto} onChange={handleChangeSelect}>
                         <option value="Suporte">Suporte</option>
                         <option value="Visita Técnica">Visita Técnica</option>
                         <option value="Financeiro">Financeiro</option>
@@ -119,8 +139,13 @@ export default function New() {
 
                     <label>Complemento</label>
                     <textarea type="text" placeholder="Descreva seu problema (opcional)..." value={complemento} onChange={(e) => {setComplemento(e.target.value)}} />
-
-                    <button type="submit" className="chamados__botao">Adicionar</button>
+                    
+                    {loadInsertChamados ?
+                        <button type="submit" className="chamados__botao" disabled={true}><img src={loading} alt="Loading" className="loading" /></button>
+                    :
+                        <button type="submit" className="chamados__botao">Registrar</button>
+                    }
+                    
                 </form>
             </div>
         </div>

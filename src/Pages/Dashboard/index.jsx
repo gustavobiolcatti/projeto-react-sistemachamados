@@ -9,7 +9,7 @@ import "./style.css"
 
 export default function Dashboard() {
 
-    const [chamados, setChamados] = useState([])
+    const [chamados, setChamados] = useState([1])
 
     return (
         <>  
@@ -33,9 +33,9 @@ export default function Dashboard() {
                     </div>
                     :
                     <div>
-                        <table className="chamados">
+                        <table className="tabela-chamados">
                             <thead>
-                                <tr className=" chamados__linha chamados__linha--cabecalho" >
+                                <tr className=" tabela-chamados__linha tabela-chamados__linha--cabecalho" >
                                     <th scope="col">Cliente</th>
                                     <th scope="col">Assunto</th>
                                     <th scope="col">Status</th>
@@ -44,7 +44,7 @@ export default function Dashboard() {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr className="chamados__linha">
+                                <tr className="tabela-chamados__linha">
                                     <td data-label="Cliente">Sujeito</td>
                                     <td data-label="Assunto">Suporte</td>
                                     <td data-label="Status">

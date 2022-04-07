@@ -64,3 +64,9 @@
     background-color: #181c2e;
     color: aliceblue;
 }
+
+.loading {
+    display: block;
+    width: 25px;
+    margin: auto;
+}
