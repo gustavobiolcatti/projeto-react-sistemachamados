@@ -1,8 +1,9 @@
 import { AuthContext } from "../../contexts/auth"
 import { useContext, useState } from "react"
 import { FiSettings, FiUpload } from "react-icons/fi"
-import { db, auth } from "../../services/firebaseConnection";
+import { db } from "../../services/firebaseConnection";
 import { doc, updateDoc } from "firebase/firestore";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
 
 import Header from "../../components/Header"
 import Title from "../../components/Title"
@@ -28,17 +29,15 @@ export default function Profile() {
             if (image.type === "image/jpeg" || image.type === "image/png") {
                 setImageAvatar(image)
 
-                const urlImage = URL.createObjectURL(imageAvatar)
+                const urlImage = URL.createObjectURL(image)
                 setAvatarUrl(urlImage)
-
-                console.log(imageAvatar)
-                console.log(avatarUrl)
             }
             else {
                 toast.error("Envie uma imagem PNG ou JPEG")
+                setImageAvatar(null)
+                return null
             }
         }
-        console.log(e.target.files[0])
     }
 
     async function handleSave(e) {
@@ -62,6 +61,9 @@ export default function Profile() {
                     toast.error("Erro ao alterar o nome")
                     console.log(error)
                 })
+                .finally(() => {
+                    setLoading(false)
+                })
         }
         else if (imageAvatar !== null && nome !== "") {
             handleUpload()
@@ -69,7 +71,47 @@ export default function Profile() {
     }
 
     async function handleUpload() {
-        const currentUser = user.uid
+        const currentUid = user.uid
+
+        const metadata = { contentType: imageAvatar.type }
+
+        const storage = getStorage()
+
+        const storageRef = ref(storage, `images/${currentUid}/${imageAvatar.name}`)
+
+        const uploadTask = uploadBytesResumable(storageRef, imageAvatar, metadata)
+
+        getDownloadURL(uploadTask.snapshot.ref)
+            .then(async (downloadUrl) => {
+                setLoading(true)
+
+                const docRef = doc(db, "users", user.uid)
+                
+                await updateDoc(docRef, {nome: nome, avatarUrl: downloadUrl})
+                    .then(() => {
+                       
+                        const data = {
+                            ...user,
+                            nome: nome,
+                            avatarUrl: downloadUrl
+                        }
+
+                        setUser(data)
+                        storageUser(data)
+                        toast.success("Usuário atualizado!")
+                    })
+                    .catch((error) => {
+                        toast.error("Erro ao atualizar o usuário")
+                        console.log(error)
+                    })
+            })
+            .catch((error) => {
+                toast.error("Erro ao alterar a imagem")
+                console.log(error)
+            })
+            .finally(() => {
+                setLoading(false)
+            })
     }
 
     return (
@@ -81,8 +123,8 @@ export default function Profile() {
                 </Title>
 
                 <div className="profile">
-                    <form className="profile__form">
-                        <label className="profile__avatar" onSubmit={(e) => {handleSave(e)}}>
+                    <form className="profile__form" onSubmit={(e) => {handleSave(e)}}>
+                        <label className="profile__avatar">
                             <span>
                                 <FiUpload color="#FFF" size={25} />
                             </span>
@@ -91,7 +133,8 @@ export default function Profile() {
                                 <input type="file" accept="image/*" onChange={(e) => handleFile(e)} /> 
                             </div>
 
-                            <img src={avatarUrl === null || avatar} alt="Avatar do usuário" width="250" height="250" />
+                            <img src={avatarUrl || avatar} alt="Avatar do usuário" width="250" height="250" />
+                            
                         </label>
 
                         <label>Nome</label>

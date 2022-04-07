@@ -45,7 +45,7 @@ export default function AuthProvider({children}) {
                         uid,
                         name,
                         email: userCredencial.user.email,
-                        avatar: null
+                        avatarUrl: null
                     }
 
                     setUser(data)
@@ -84,7 +84,7 @@ export default function AuthProvider({children}) {
                             uid,
                             name: userInfoData.nome,
                             email,
-                            avatar: userInfoData.avatarUrl
+                            avatarUrl: userInfoData.avatarUrl
                         }
 
                         setUser(data)

@@ -6,6 +6,7 @@ import WatchLogin from "./WatchLogin";
 import SignIn from "../Pages/Signin"
 import SignUp from "../Pages/Signup"
 import Profile from "../Pages/Profiles"
+import Customer from "../Pages/Customers"
 
 const Dashboard = lazy(() => import("../Pages/Dashboard"))
 
@@ -28,7 +29,21 @@ export default function Rotas() {
                 } />
             </Route>
 
-            <Route path="/profile" element={<Profile />} /> 
+            <Route path="/profile" element={<PrivateOutlet />}>
+                <Route path="/profile" element={
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <Profile />
+                    </Suspense>
+                } />
+            </Route>
+
+            <Route path="/customers" element={<PrivateOutlet />}>
+                <Route path="/customers" element={
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <Customer />
+                    </Suspense>
+                } />
+            </Route>
         </Routes>
     )
 }

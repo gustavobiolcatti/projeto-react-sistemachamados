@@ -9,8 +9,8 @@ export default function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
-          <ToastContainer autoClose={5000} />
-            <Rotas />
+          <ToastContainer autoClose={3500} />
+          <Rotas />
       </AuthProvider>
     </BrowserRouter>
   );
