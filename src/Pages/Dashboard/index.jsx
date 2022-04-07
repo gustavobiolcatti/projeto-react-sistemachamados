@@ -9,7 +9,7 @@ import "./style.css"
 
 export default function Dashboard() {
 
-    const [chamados, setChamados] = useState([1])
+    const [chamados, setChamados] = useState([])
 
     return (
         <>  
@@ -52,10 +52,10 @@ export default function Dashboard() {
                                     </td>
                                     <td data-label="Cadastrado em">07/04/2022</td>
                                     <td data-label="#">
-                                        <button className="action">
+                                        <button className="action action--search">
                                             <FiSearch color="#FFF" size={17} />
                                         </button>
-                                        <button className="action">
+                                        <button className="action action--edit">
                                             <FiEdit2 color="#FFF" size={17} />
                                         </button>
                                     </td>

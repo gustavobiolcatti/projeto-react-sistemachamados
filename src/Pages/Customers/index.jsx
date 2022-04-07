@@ -1,5 +1,5 @@
 import { useState, useContext } from "react"
-import { doc, setDoc, getDoc } from "firebase/firestore"
+import { addDoc, collection } from "firebase/firestore"
 import { AuthContext } from "../../contexts/auth"
 import { toast } from "react-toastify"
 import { FiUser } from "react-icons/fi"
@@ -16,7 +16,7 @@ export default function Customer() {
     const [cnpj, setCnpj] = useState("")
     const [endereco, setEndereco] = useState("")
 
-    const { user: { uid }, setLoading } = useContext(AuthContext)
+    const { setLoading } = useContext(AuthContext)
 
     async function handleAdd(e) {
         e.preventDefault()
@@ -24,7 +24,7 @@ export default function Customer() {
         if (nomeFantasia !== "" && cnpj !== "" && endereco !== "") {
             setLoading(true)
 
-            await setDoc(doc(db, "customers", uid), {
+            await addDoc(collection(db, "customers"), {
                 nomeFantasia: nomeFantasia,
                 cnpj: cnpj,
                 endereco: endereco
@@ -64,7 +64,7 @@ export default function Customer() {
                         <input type="text" placeholder="XX.XXX.XXX/XXXX-XX" value={cnpj} onChange={(e) => setCnpj(e.target.value)} className="customers__input" />
 
                         <label>Endereço</label>
-                        <input type="text" placeholder="R. Endereço, Bairro, CEP" value={endereco} onChange={(e) => setEndereco(e.target.value)} className="customers__input" />
+                        <input type="text" placeholder="Endereço da Empresa" value={endereco} onChange={(e) => setEndereco(e.target.value)} className="customers__input" />
 
                         <button type="submit" className="customers__botao">Salvar</button>
                     </form>

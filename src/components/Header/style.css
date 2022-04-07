@@ -41,6 +41,8 @@
 
 .sidebar__sair {
     display: flex;
+    position: absolute;
+    bottom: 0;
     width: 100%;
     padding: 1.3em;
     color: aliceblue;

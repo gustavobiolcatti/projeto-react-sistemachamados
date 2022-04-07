@@ -34,14 +34,34 @@
     text-decoration: none;
     font-weight: bold;
     box-shadow: 0 0 25px -10px #000;
+    transition: .5s;
+}
+
+.novo:hover {
+    transform: scale(1.1);
 }
 
 .badge {
+    padding: .5em;
+    margin-left: 0;
+    border-radius: 5px;
     background-color: #5cb85c;
+    box-sizing: border-box;
 }
 
 .action {
+    padding: .5em;
+    margin-left: 1em;
+    border: none;
+    border-radius: 5px;
+}
+
+.action--search {
     background-color: #3583f6;
+}
+
+.action--edit {
+    background-color: orange;
 }
 
 .chamados {

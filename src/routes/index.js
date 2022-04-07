@@ -7,6 +7,7 @@ import SignIn from "../Pages/Signin"
 import SignUp from "../Pages/Signup"
 import Profile from "../Pages/Profiles"
 import Customer from "../Pages/Customers"
+import New from "../Pages/New"
 
 const Dashboard = lazy(() => import("../Pages/Dashboard"))
 
@@ -41,6 +42,14 @@ export default function Rotas() {
                 <Route path="/customers" element={
                     <Suspense fallback={<div>Loading...</div>}>
                         <Customer />
+                    </Suspense>
+                } />
+            </Route>
+
+            <Route path="/new" element={<PrivateOutlet />}>
+                <Route path="/new" element={
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <New />
                     </Suspense>
                 } />
             </Route>

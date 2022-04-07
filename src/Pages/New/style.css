@@ -1,0 +1,66 @@
+.content {
+    width: calc(100vw - 200px);
+    height: 100vh;
+    margin-left: 200px;
+    padding: 1em;
+    background-color: aliceblue;
+    box-sizing: border-box;
+}
+
+.chamados {
+    display: flex;
+    width: 100%;
+    padding: .8em;
+    margin-top: 1em;
+    background-color: #FFF;
+    border-radius: 5px;
+    align-items: center;
+    box-shadow: 0 0 25px -15px #000;
+}
+
+.chamados__form {
+    display: flex;
+    flex-direction: column;
+}
+
+.chamados__status {
+    width: 400px;
+}
+
+.chamados__form label {
+    margin-bottom: .5em;
+    font-size: 1.4em;
+}
+
+.chamados__form input, textarea, select {
+    width: 400px;
+    max-width: 600px;
+    margin-bottom: 2em;
+    padding: .7em;
+    border: 1px solid #d8d5e6;
+    border-radius: 5px;
+}
+
+.chamados__form input:disabled {
+    cursor: not-allowed;
+}
+
+.chamados__status .chamados__radio {
+    width: auto;
+    margin-left: 0;
+}
+
+.chamados__status label {
+    font-size: 16px;
+    margin-left: .2em;
+    margin-right: 2em;
+}
+
+.chamados__botao {
+    width: 400px;
+    padding: 1em;
+    border: none;
+    border-radius: 5px;
+    background-color: #181c2e;
+    color: aliceblue;
+}
