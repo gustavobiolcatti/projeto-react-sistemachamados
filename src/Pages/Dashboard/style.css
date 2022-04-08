@@ -30,23 +30,43 @@
     padding: .75em;
     margin-top: 2em;
     border-radius: 10px;
-    background-color: #13df54;
+    background-color: #07a138;
     text-decoration: none;
     font-weight: bold;
     box-shadow: 0 0 25px -10px #000;
     transition: .5s;
 }
 
+.novo--tabela {
+    width: fit-content;
+    margin: 2em auto;
+}
+
 .novo:hover {
     transform: scale(1.1);
+    background-color: #21d35a;
 }
 
 .badge {
     padding: .5em;
     margin-left: 0;
     border-radius: 5px;
-    background-color: #5cb85c;
+    font-weight: bold;
     box-sizing: border-box;
+}
+
+.badge--aberto {
+    color: #FFF;
+    background-color: #0f5dee;
+}
+
+.badge--progresso {
+    background-color: #eedf0f;
+}
+
+.badge--atendido {
+    color: #FFF;
+    background-color: #5cb85c;
 }
 
 .action {
@@ -70,7 +90,7 @@
     border: none;
     border-collapse: unset;
 	border-radius: 15px;
-	border-spacing: 0 0.5rem;
+	border-spacing: 0 0.2rem;
     font-size: 0.8em;
 }
 
@@ -105,4 +125,26 @@ th {
 td {
 	padding: 1em;
     text-align: center;
+}
+
+.botao-mais {
+    display: flex;
+    align-items: center;
+    padding: .75em;
+    margin-top: 2em;
+    border: none;
+    border-radius: 10px;
+    background-color: #000000;
+    color: #FFF;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 0 25px -10px #000;
+    transition: .5s;
+    opacity: 0.7;
+}
+
+.botao-mais:hover {
+    transform: scale(1.05);
+    opacity: 1;
 }
