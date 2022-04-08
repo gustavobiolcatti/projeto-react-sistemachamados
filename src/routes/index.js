@@ -53,6 +53,14 @@ export default function Rotas() {
                     </Suspense>
                 } />
             </Route>
+
+            <Route path="/new/:id" element={<PrivateOutlet />}>
+                <Route path="/new/:id" element={
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <New />
+                    </Suspense>
+                } />
+            </Route>
         </Routes>
     )
 }

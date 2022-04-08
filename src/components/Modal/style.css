@@ -1,0 +1,92 @@
+.modal {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #0000008c;
+    z-index: 99;
+}
+
+.modal__container {
+    position: fixed;
+    max-width: 600px;
+    top: 15%;
+    right: 0;
+    left: 0;
+    padding: 1.5em;
+    margin: 0 auto;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+    box-shadow: 0 0 20px #000000b9;
+}
+
+.close {
+    display: flex;
+    align-items: center;
+    padding: .5em 1em;
+    border: none;
+    border-radius: 5px;
+    background-color: tomato;
+    color: #FFF;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.modal__content {
+    padding: 1em;
+}
+
+.modal__titulo {
+    margin-bottom: 1em;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.row {
+    margin-bottom: 1.5em;
+}
+
+.row:last-child {
+    margin-bottom: 0;
+}
+
+.row:last-child p {
+    margin-top: 1em;
+}
+
+.row h3 {
+    font-weight: bold;
+}
+
+.row span {
+    margin: 0;
+    font-weight: bold;
+}
+
+.row i {
+    color: #000;
+    font-weight: 400;
+}
+
+.row .badge {
+    padding: .25em .5em;
+    margin-left: 0;
+    border-radius: 5px;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+
+.row .badge--aberto {
+    color: #FFF;
+    background-color: #0f5dee;
+}
+
+.row .badge--progresso {
+    background-color: #eedf0f;
+}
+
+.row .badge--atendido {
+    color: #FFF;
+    background-color: #5cb85c;
+}

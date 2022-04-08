@@ -148,3 +148,9 @@ td {
     transform: scale(1.05);
     opacity: 1;
 }
+
+[data-label="#"] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

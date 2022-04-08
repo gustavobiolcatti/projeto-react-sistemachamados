@@ -8,6 +8,7 @@ import { format } from "date-fns/esm"
 
 import Header from "../../components/Header"
 import Title from "../../components/Title"
+import Modal from "../../components/Modal"
 
 import "./style.css"
 
@@ -18,22 +19,11 @@ export default function Dashboard() {
     const [isEmpty, setIsEmpty] = useState(false)
     const [loading, setLoading] = useState(true)
     const [loadingMore, setLoadingMore] = useState(false)
-    
-    const first = query(collection(db, "chamados"), orderBy("created", "desc"), limit(5))
+    const [showPostModal, setShowPostModal] = useState(false)
+    const [detail, setDetail] = useState({})
 
-    const loadChamados = async () => {
-        await getDocs(first)
-            .then((snapshot) => {
-                updateState(snapshot.docs)
-            })
-            .catch((error) => {
-                toast.error("Erro ao carregar chamados")
-                console.log(error)
-            })
-    }
-
-    async function updateState(snapshot) {
-        const isCollectionEmpty = snapshot.length === 0
+    async function updateState(snapshot, isMore) {
+        const isCollectionEmpty = snapshot.length < 1
 
         if (!isCollectionEmpty) {
             const lista= []
@@ -53,7 +43,13 @@ export default function Dashboard() {
 
             const lastDoc = snapshot[snapshot.length - 1]
 
-            setChamados(chamados => [...chamados, ...lista])
+            if (isMore) {
+                setChamados(chamados => [...chamados, ...lista])
+            }
+            else {
+                setChamados(lista)
+            }
+
             setLastDocs(lastDoc)
         }
         else {
@@ -66,11 +62,11 @@ export default function Dashboard() {
     async function handleMore() {
         setLoadingMore(true)
 
-        const showAfter = query(collection(db, "chamados"), orderBy("created"), startAfter(lastDocs), limit(5))
+        const showAfter = query(collection(db, "chamados"), orderBy("created", "desc"), startAfter(lastDocs), limit(5))
         
         await getDocs(showAfter)
             .then((snapshot) => {
-                updateState(snapshot.docs)
+                updateState(snapshot.docs, true)
             })
             .catch((error) => {
                 toast.error("Erro ao carregar mais chamados")
@@ -91,13 +87,29 @@ export default function Dashboard() {
         return classe[status]
     }
 
+    function togglePostModal(item) {
+        setShowPostModal(!showPostModal)
+
+        setDetail(item)
+    }
 
     useEffect(() => {
+        const first = query(collection(db, "chamados"), orderBy("created", "desc"), limit(5))
+
+        async function loadChamados() {
+            await getDocs(first)
+                .then((snapshot) => {
+                    updateState(snapshot.docs, false)
+                })
+                .catch((error) => {
+                    toast.error("Erro ao carregar chamados")
+                    console.log(error)
+                })
+        }
+
         loadChamados()
 
-        return () => {
-
-        }
+        return () => {}
     }, [])
 
     if (loading) {
@@ -170,12 +182,12 @@ export default function Dashboard() {
                                             </td>
                                             <td data-label="Cadastrado em">{item.createdFormated}</td>
                                             <td data-label="#">
-                                                <button className="action action--search">
+                                                <button onClick={() => togglePostModal(item)} className="action action--search">
                                                     <FiSearch color="#FFF" size={17} />
                                                 </button>
-                                                <button className="action action--edit">
+                                                <Link to={`/new/${item.id}`} className="action action--edit">
                                                     <FiEdit2 color="#FFF" size={17} />
-                                                </button>
+                                                </Link>
                                             </td>
                                         </tr>
                                     )
@@ -190,6 +202,8 @@ export default function Dashboard() {
                     </div>
                 }
             </div>
+
+            {showPostModal && (<Modal conteudo={detail} close={setShowPostModal} />)}
         </>
     )
 }
